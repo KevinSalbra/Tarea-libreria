@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../app/Controllers/bookcontroller.php';
 require_once __DIR__ . '/../app/Controllers/authorcontroller.php';
-require_once __DIR__ . '/../app/Controllers/PublisherController.php';
+require_once __DIR__ . '/../app/Controllers/publishercontroller.php';
 
 use eftec\bladeone\BladeOne;
 
