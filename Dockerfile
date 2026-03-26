@@ -1,35 +1,21 @@
-# Imagen base con PHP y Apache
-FROM php:8.2-apache
+# Imagen base
+FROM php:8.2-cli
 
-# Instalar extensiones necesarias
-RUN apt-get update && apt-get install -y \
-    unzip \
-    curl \
-    git \
-    libzip-dev \
-    zip \
-    && docker-php-ext-install zip
+# Directorio de trabajo
+WORKDIR /app
 
-# Instalar Composer
+# Copiar archivos
+COPY . .
+
+# Instalar dependencias (si usas composer)
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN composer install
 
-# Copiar proyecto
-COPY . /var/www/html
+# Render usa un puerto dinámico
+ENV PORT=10000
 
-# Establecer directorio de trabajo
-WORKDIR /var/www/html
+# Exponer puerto
+EXPOSE 10000
 
-# Instalar dependencias de Laravel
-RUN composer install --no-interaction --no-dev --optimize-autoloader
-
-# Permisos necesarios
-RUN chown -R www-data:www-data /var/www/html/storage
-RUN chown -R www-data:www-data /var/www/html/bootstrap/cache
-
-# Configurar Apache para usar /public
-RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
-
-# Habilitar mod_rewrite
-RUN a2enmod rewrite
-
-EXPOSE 80
+# Comando usando el puerto de Render
+CMD php -S 0.0.0.0:$PORT -t public
