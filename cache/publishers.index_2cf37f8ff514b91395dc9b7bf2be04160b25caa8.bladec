@@ -1,0 +1,37 @@
+<?php $_shouldextend[1]=1; ?>
+
+<?php $this->startSection('content'); ?>
+
+<h1 style="text-align:center; margin-bottom:30px;"> Publishers</h1>
+
+<div style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center;">
+
+<?php $__currentLoopData = $publishers; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $publisher): $loop = $this->incrementLoopIndices();  ?>
+ <div style="border:1px solid #ccc; border-radius:10px; padding:15px; width:250px; text-align:center;">
+
+ <img src="<?php echo \htmlentities($publisher['image']??'', ENT_QUOTES, 'UTF-8', false); ?>" width="150" style="margin-bottom:10px; border-radius:8px;">
+
+ <h3><?php echo \htmlentities($publisher['name']??'', ENT_QUOTES, 'UTF-8', false); ?></h3>
+
+ <p><?php echo \htmlentities($publisher['country']??'', ENT_QUOTES, 'UTF-8', false); ?></p>
+
+ <a href="/?url=publishers/<?php echo \htmlentities($publisher['id']??'', ENT_QUOTES, 'UTF-8', false); ?>" style="
+ display:inline-block;
+ margin-top:10px;
+ padding:8px 12px;
+ background:#007BFF;
+ color:white;
+ border-radius:5px;
+ text-decoration:none;
+ ">
+ View more
+ </a>
+
+ </div>
+<?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+
+</div>
+
+<?php $this->stopSection(); ?>
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('layouts.app'); } ?>

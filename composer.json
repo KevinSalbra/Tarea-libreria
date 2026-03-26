@@ -1,0 +1,6 @@
+{
+    "name": "kevinsalazar/tarea1",
+    "require": {
+        "eftec/bladeone": "^4.19"
+    }
+}
